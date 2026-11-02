@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>de_QR_Code__c</fullName>
+    <description>Scannable QR code image encoding this Lead&apos;s Record Id. Generated and saved by the de_recordQrCode LWC.</description>
+    <inlineHelpText>Auto-generated QR of the record Id. Scan with the Service 360 app to open this record.</inlineHelpText>
+    <label>QR Code</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

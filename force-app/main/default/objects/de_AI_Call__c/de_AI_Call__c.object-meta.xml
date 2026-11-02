@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Data-API-readable mirror of VoiceCall (AI calling history). VoiceCall is a feature-gated Service Cloud Voice object the Customer 360 app's client-credentials token cannot query; this object is kept in sync by de_VoiceCallMirrorTrigger so the app can read the history via the standard Data API.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>AI Call</label>
+    <nameField>
+        <label>AI Call Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>AI Calls</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

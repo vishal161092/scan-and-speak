@@ -1,0 +1,26 @@
+<template>
+    <div class="qr-card">
+        <div class="qr-card__head">
+            <span class="qr-card__title"><span class="dot"></span>{cardTitle}</span>
+        </div>
+
+        <div class="qr-card__body">
+            <template lwc:if={hasQr}>
+                <div class="qr-frame">
+                    <img src={qrDataUrl} alt="Record QR code" class="de-qr" />
+                </div>
+                <p class="qr-id">{recordId}</p>
+            </template>
+
+            <template lwc:if={error}>
+                <div class="qr-error" role="alert">{error}</div>
+            </template>
+        </div>
+
+        <div class="qr-card__foot">
+            <button class="btn btn--accent" onclick={handleSave} disabled={saving}>
+                Save QR to record
+            </button>
+        </div>
+    </div>
+</template>

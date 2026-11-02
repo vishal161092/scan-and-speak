@@ -1,0 +1,84 @@
+<template>
+  <article class="m-card card">
+    <div class="m-card__head">
+      <h3 class="m-card__title"><span class="m-dot"></span> Human Calling History</h3>
+      <span class="m-pill">{callCount} calls</span>
+    </div>
+
+    <div class="detail">
+      <!-- advisor row -->
+      <div class="advisor">
+        <span class="avatar">{initials}</span>
+        <div class="advisor__meta">
+          <span class="advisor__name">{active.advisor}</span>
+          <span class="advisor__role">{active.role} · {active.direction} · {active.date}</span>
+        </div>
+        <div class="advisor__tags">
+          <span class={sentimentClass}>{active.sentiment}</span>
+        </div>
+      </div>
+
+      <!-- title -->
+      <div class="calltitle">{active.title}</div>
+
+      <!-- player -->
+      <div class="player">
+        <button class="play" onclick={togglePlay} title="Play recording">
+          <lightning-icon icon-name={playIcon} size="small" variant="inverse"></lightning-icon>
+        </button>
+        <div class="wave">
+          <template for:each={bars} for:item="b">
+            <span key={b.key} class={b.className} style={b.style}></span>
+          </template>
+        </div>
+        <span class="dur m-mono">{active.duration}</span>
+      </div>
+
+      <!-- sentiment meter -->
+      <div class="meter">
+        <div class="meter__head">
+          <span>Sentiment score</span>
+          <span class="meter__val m-mono">{active.score}<span class="meter__hundred">/100</span></span>
+        </div>
+        <div class="meter__track">
+          <div class={scoreColorClass} style={scoreStyle}></div>
+        </div>
+      </div>
+
+      <!-- tabs -->
+      <div class="tabs">
+        <button class={transcriptTabClass} onclick={showTranscriptTab}>Transcript</button>
+        <button class={summaryTabClass} onclick={showSummaryTab}>Summary</button>
+      </div>
+
+      <template if:true={showTranscript}>
+        <div class="transcript">
+          <template for:each={turns} for:item="t">
+            <div key={t.id} class={t.rowClass}>
+              <span class="turn__who">{t.name}</span>
+              <span class={t.bubbleClass}>{t.text}</span>
+            </div>
+          </template>
+        </div>
+      </template>
+
+      <template if:true={showSummary}>
+        <p class="summary__text">{active.summary}</p>
+      </template>
+    </div>
+
+    <!-- list -->
+    <div class="list">
+      <template for:each={list} for:item="c">
+        <button key={c.id} class={c.rowClass} data-id={c.id} onclick={selectCall}>
+          <span class="dir"><lightning-icon icon-name={c.dirIcon} size="xx-small"></lightning-icon></span>
+          <span class="row__main">
+            <span class="row__title">{c.title}</span>
+            <span class="row__meta">{c.advisor} · {c.date}</span>
+          </span>
+          <span class="row__dur m-mono">{c.duration}</span>
+        </button>
+      </template>
+    </div>
+  </article>
+</template>

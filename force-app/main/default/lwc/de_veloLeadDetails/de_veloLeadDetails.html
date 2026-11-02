@@ -1,0 +1,66 @@
+<template>
+  <article class="m-card card">
+    <div class="m-card__head">
+      <h3 class="m-card__title"><span class="m-dot"></span> Details &amp; Vehicle Interest</h3>
+      <button class="m-btn edit" onclick={toggleEdit}>
+        <lightning-icon icon-name="utility:edit" size="xx-small"></lightning-icon>
+        <span>{editLabel}</span>
+      </button>
+    </div>
+
+    <!-- VIEW -->
+    <template if:false={editing}>
+      <div class="vehicle">
+        <div class="vehicle__icon">
+          <lightning-icon icon-name="utility:travel_and_places" size="small" variant="inverse"></lightning-icon>
+        </div>
+        <div class="vehicle__meta">
+          <span class="vehicle__eyebrow">INTERESTED MODEL</span>
+          <span class="vehicle__name">{model}</span>
+          <span class="vehicle__sub">{vehicleSub}</span>
+        </div>
+        <div class="vehicle__td">
+          <span class="td-label">Test Drive</span>
+          <span class={testDriveClass}>{testDrive}</span>
+        </div>
+      </div>
+
+      <div class="m-card__body grid">
+        <template for:each={qualRows} for:item="r">
+          <div key={r.id} class="tile">
+            <div class="tile__head">
+              <lightning-icon icon-name={r.icon} size="xx-small" class="tile__icon"></lightning-icon>
+              <span class="tile__k">{r.label}</span>
+            </div>
+            <span class="tile__v">{r.value}</span>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <!-- EDIT -->
+    <template if:true={editing}>
+      <div class="m-card__body">
+        <lightning-record-edit-form
+          class="edit-form"
+          record-id={recordId}
+          object-api-name={objectApiName}
+          onsuccess={handleSuccess}
+        >
+          <div class="edit-grid">
+            <template for:each={editFields} for:item="f">
+              <div key={f.name} class="edit-field">
+                <span class="edit-field__label">{f.label}</span>
+                <lightning-input-field field-name={f.name} variant="label-hidden"></lightning-input-field>
+              </div>
+            </template>
+          </div>
+          <div class="edit-actions">
+            <button type="button" class="m-btn" onclick={handleCancel}>Cancel</button>
+            <button type="submit" class="m-btn is-accent">Save</button>
+          </div>
+        </lightning-record-edit-form>
+      </div>
+    </template>
+  </article>
+</template>

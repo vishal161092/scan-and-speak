@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>de Showroom Nudge Access</label>
+    <description>Field access for the Showroom Nudge Theater pipeline (Nudge__c.Transcript_Chunk__c), used by the Customer 360 web writer and the de_showroomNudgeTheater LWC.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <fieldPermissions>
+        <field>Nudge__c.Transcript_Chunk__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+</PermissionSet>

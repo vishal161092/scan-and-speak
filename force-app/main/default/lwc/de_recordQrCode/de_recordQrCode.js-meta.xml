@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Record QR Code</masterLabel>
+    <description>Generates a scannable QR code of the record Id and can save it to the de_QR_Code__c rich text field.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Lead</object>
+            </objects>
+            <property name="cardTitle" type="String" label="Card Title" default="Record QR Code"
+                description="Heading shown on the component card." />
+            <property name="autoSave" type="Boolean" label="Auto-save to record" default="false"
+                description="If checked, the QR is written to the de_QR_Code__c field automatically on load." />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

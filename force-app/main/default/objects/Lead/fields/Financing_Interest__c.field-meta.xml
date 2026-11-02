@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Financing_Interest__c</fullName>
+    <label>Financing Interest</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cash / Self-funded</fullName>
+                <default>false</default>
+                <label>Cash / Self-funded</label>
+            </value>
+            <value>
+                <fullName>Loan / EMI</fullName>
+                <default>false</default>
+                <label>Loan / EMI</label>
+            </value>
+            <value>
+                <fullName>Lease</fullName>
+                <default>false</default>
+                <label>Lease</label>
+            </value>
+            <value>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+                <label>Undecided</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

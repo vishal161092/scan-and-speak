@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Roof_Type__c</fullName>
+    <description>Used by the Einstein Vision Demo updated Jan 2020.  Set the Shadow_Roof_Type__c field to the value you want to be predicted in this field.</description>
+    <inlineHelpText>This field will change automatically when you click the “Analyze Roof Type” button.</inlineHelpText>
+    <label>Roof Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>true</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>Flat</fullName>
+                <default>false</default>
+                <label>Flat</label>
+            </value>
+            <value>
+                <fullName>Pitched</fullName>
+                <default>false</default>
+                <label>Pitched</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

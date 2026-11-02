@@ -1,0 +1,363 @@
+/* Tokens inlined from veloTheme (kept per-component so each LWC is self-contained). */
+/* ============================================================
+   Velo Dealer Sales — shared DEEP-BLACK GLASS design tokens
+   Cards are near-opaque black so they read as premium black glass
+   on ANY host record page (a Lightning page background is light,
+   so translucency would look grey). The "glass" comes from a
+   lit-from-top gradient sheen, luminous hairline edges, an inner
+   top highlight, and soft depth shadow — self-contained, not
+   dependent on what's behind the card.
+   ============================================================ */
+:host {
+  /* --- surfaces (near-opaque black glass, layered) --- */
+  --bg: #0a0a0b;
+  --surface: rgba(18, 18, 22, 0.96);
+  --surface-2: rgba(32, 32, 40, 0.96);
+  --surface-3: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.14);
+  --line-strong: rgba(255, 255, 255, 0.24);
+
+  /* --- glass --- */
+  --glass-blur: 14px;
+  --glass-tint: linear-gradient(155deg, rgba(30, 30, 37, 0.98) 0%, rgba(14, 14, 18, 0.98) 46%, rgba(8, 8, 11, 0.99) 100%);
+  --glass-sheen: rgba(255, 255, 255, 0.14);
+
+  /* --- ink scale (off-white -> faint grey) --- */
+  --ink: #f4f4f6;
+  --ink-2: #c7c7cf;
+  --muted: #8f8f9a;
+  --faint: #626270;
+
+  /* --- single Velo red accent --- */
+  --accent: #e11b22;
+  --accent-2: #ff3b41;
+  --accent-soft: rgba(225, 27, 34, 0.16);
+  --accent-line: rgba(225, 27, 34, 0.42);
+
+  /* --- premium metallic (used only for score / hero) --- */
+  --gold: #c9a86a;
+
+  /* --- semantic (sentiment / status) --- */
+  --pos: #34c759;
+  --pos-soft: rgba(52, 199, 89, 0.16);
+  --warn: #f5a623;
+  --warn-soft: rgba(245, 166, 35, 0.16);
+  --neg: #ff4d4f;
+  --neg-soft: rgba(255, 77, 79, 0.16);
+  --info: #5ac8fa;
+  --info-soft: rgba(90, 200, 250, 0.16);
+
+  /* --- type --- */
+  --font: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --fs-2xs: 10px;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-base: 13px;
+  --fs-md: 15px;
+  --fs-lg: 19px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* --- 4/8 spacing --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 28px;
+  --sp-7: 40px;
+
+  /* --- shape --- */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow-card: inset 0 1px 0 var(--glass-sheen), inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 14px 40px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 16px 48px rgba(0, 0, 0, 0.7);
+
+  display: block;
+}
+
+/* ---------- card shell (deep-black glass) ---------- */
+.m-card {
+  position: relative;
+  background: var(--glass-tint);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  font-family: var(--font);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+}
+/* diagonal top-left sheen — gives the lit-glass look without covering content */
+.m-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.m-card > * { position: relative; z-index: 1; }
+.m-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--line);
+}
+.m-card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+.m-card__body {
+  padding: var(--sp-4);
+}
+
+/* accent dot used in titles */
+.m-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px 1px var(--accent-line);
+  flex: 0 0 auto;
+}
+
+/* ---------- pills & chips ---------- */
+.m-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+  background: var(--surface-3);
+  white-space: nowrap;
+}
+.m-pill.is-pos { color: var(--pos); background: var(--pos-soft); border-color: transparent; }
+.m-pill.is-warn { color: var(--warn); background: var(--warn-soft); border-color: transparent; }
+.m-pill.is-neg { color: var(--neg); background: var(--neg-soft); border-color: transparent; }
+.m-pill.is-accent { color: var(--accent-2); background: var(--accent-soft); border-color: transparent; }
+
+/* ---------- key/value rows ---------- */
+.m-kv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+.m-kv:last-child { border-bottom: 0; }
+.m-kv__k {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  font-weight: var(--fw-medium);
+}
+.m-kv__v {
+  font-size: var(--fs-base);
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+  text-align: right;
+}
+
+/* ---------- buttons ---------- */
+.m-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  border: 1px solid var(--line-strong);
+  background: var(--surface-3);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+.m-btn:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-1px); }
+.m-btn.is-accent {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(225, 27, 34, 0.35);
+}
+.m-btn.is-accent:hover { filter: brightness(1.06); }
+.m-btn--icon {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+/* ---------- misc ---------- */
+.m-muted { color: var(--muted); }
+.m-mono { font-variant-numeric: tabular-nums; }
+
+
+.edit { height: 30px; }
+
+/* vehicle hero */
+.vehicle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(140% 120% at 100% 0%, rgba(225, 27, 34, 0.12), transparent 55%),
+    var(--surface);
+}
+.vehicle__icon {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  box-shadow: 0 8px 20px rgba(225, 27, 34, 0.35);
+}
+.vehicle__meta { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.vehicle__eyebrow {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  font-weight: var(--fw-semibold);
+}
+.vehicle__name {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+  line-height: 1.1;
+}
+.vehicle__sub { font-size: var(--fs-sm); color: var(--ink-2); }
+.vehicle__td { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.td-label {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: var(--fw-semibold);
+}
+
+/* qualification grid */
+.grid {
+  display: grid;
+  /* minmax(0,1fr) lets columns shrink below their nowrap content so long
+     values (e.g. "Velo Trekker (Diesel)") ellipsize instead of pushing the
+     card wider than its region and spilling off the right edge. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-3);
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  padding: var(--sp-3);
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+/* icon + label share the top line; value gets its own full-width line below so
+   long labels and values render in full instead of being squeezed / truncated. */
+.tile__head { display: flex; align-items: center; justify-content: center; gap: var(--sp-2); min-width: 0; max-width: 100%; }
+.tile__icon { --sds-c-icon-color-foreground-default: var(--muted); flex: 0 0 auto; }
+.tile__k {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  line-height: 3;
+  /* single line — ellipsize if it doesn't fit */
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile__v {
+  font-size: var(--fs-base);
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+/* edit mode — dark editing surface (no white card in any org theme). The
+   standard SLDS inputs/labels are re-themed to dark via --lwc-* design tokens,
+   which cascade into the base components' shadow DOM (arbitrary CSS can't). */
+.edit-form {
+  color: #ffffff;
+  --lwc-colorTextLabel: #ffffff;
+  --slds-c-input-label-text-color: #ffffff;
+  --slds-c-input-label-color: #ffffff;
+  --lwc-colorTextDefault: #f4f4f6;
+  --lwc-colorTextInverse: #f4f4f6;
+  --lwc-colorTextPlaceholder: #8f8f9a;
+  --lwc-colorTextInputPlaceholder: #8f8f9a;
+  --lwc-colorTextIconDefault: #c7c7cf;
+  --lwc-colorBackgroundInput: rgba(255, 255, 255, 0.06);
+  --lwc-colorBackgroundInputSearch: rgba(255, 255, 255, 0.06);
+  --lwc-colorBorderInput: rgba(255, 255, 255, 0.24);
+  --lwc-colorBorder: rgba(255, 255, 255, 0.24);
+  --lwc-colorBorderInputActive: #ff3b41;
+}
+.edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.edit-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+/* our own label — guaranteed white on the dark surface (native label hidden) */
+.edit-field__label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: #ffffff;
+  line-height: 1.25;
+}
+/* dark inputs/comboboxes — override SLDS control chrome */
+.edit-field lightning-input-field {
+  --slds-c-input-color-background: rgba(255, 255, 255, 0.06);
+  --slds-c-input-color-border: rgba(255, 255, 255, 0.24);
+  --slds-c-input-text-color: #f4f4f6;
+  --slds-c-combobox-color-background: rgba(255, 255, 255, 0.06);
+  --slds-c-combobox-color-border: rgba(255, 255, 255, 0.24);
+}
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}

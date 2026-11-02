@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transcript_Chunk__c</fullName>
+    <label>Transcript Chunk</label>
+    <type>LongTextArea</type>
+    <length>2000</length>
+    <visibleLines>3</visibleLines>
+    <description>Latest ~10s spoken transcript chunk that produced this nudge. Written by the Customer 360 web app; read by the de_showroomNudgeTheater LWC to show the live conversation.</description>
+    <inlineHelpText>The customer's spoken line that triggered this nudge.</inlineHelpText>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+</CustomField>

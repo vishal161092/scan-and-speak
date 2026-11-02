@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rolling_Summary__c</fullName>
+    <description>Running 2-3 sentence summary of the showroom conversation so far. Fed back into the prompt as context each cycle and overwritten with the prompt&apos;s updated summary every run (state field).</description>
+    <label>Rolling Summary</label>
+    <length>2000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

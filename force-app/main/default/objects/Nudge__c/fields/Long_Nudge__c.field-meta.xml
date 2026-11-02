@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Long_Nudge__c</fullName>
+    <description>The longer coaching nudge shown as a card on the sales rep&apos;s phone. Written by the Showroom Nudge prompt; updated only when a materially new nudge is generated.</description>
+    <label>Long Nudge</label>
+    <length>1000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>

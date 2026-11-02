@@ -1,0 +1,34 @@
+<template>
+  <article class="m-card card">
+    <div class="m-card__head">
+      <h3 class="m-card__title"><span class="m-dot"></span> Communication So Far</h3>
+      <span class="m-pill">{total} touchpoints</span>
+    </div>
+
+    <div class="lastbar">
+      <span class="lastbar__k">Last contact</span>
+      <span class="lastbar__v">{lastContact}</span>
+    </div>
+
+    <div class="m-card__body tl">
+      <template for:each={events} for:item="e">
+        <div key={e.id} class="item">
+          <div class="rail">
+            <span class={e.dotClass}>
+              <lightning-icon icon-name={e.icon} size="xx-small" variant="inverse"></lightning-icon>
+            </span>
+            <template if:false={e.last}><span class="line"></span></template>
+          </div>
+          <div class="content">
+            <div class="content__top">
+              <span class="content__title">{e.title}</span>
+              <span class="content__chan">{e.channel}</span>
+            </div>
+            <span class="content__desc">{e.desc}</span>
+            <span class="content__when">{e.when}</span>
+          </div>
+        </div>
+      </template>
+    </div>
+  </article>
+</template>

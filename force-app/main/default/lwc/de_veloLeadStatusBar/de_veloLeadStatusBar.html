@@ -1,0 +1,48 @@
+<template>
+  <article class="m-card card">
+    <div class="top">
+      <div class="top__left">
+        <span class="label">LEAD STATUS</span>
+        <span class={headlineClass}>{headline}</span>
+      </div>
+      <div class="top__right">
+        <div class="meta">
+          <lightning-icon icon-name="utility:clock" size="xx-small"></lightning-icon>
+          <span>{ageLabel}</span>
+        </div>
+        <span class="meta__sep">·</span>
+        <div class="meta">
+          <lightning-icon icon-name="utility:activity" size="xx-small"></lightning-icon>
+          <span>{lastActivity}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- pipeline progress — same treatment as the 360 engagement bar -->
+    <div class="sb__progress">
+      <div class="sb__track">
+        <div class={progressFillClass} style={progressStyle}></div>
+      </div>
+      <div class="sb__scale">
+        <span class="sb__stage">{stageLabel}</span>
+        <span class="sb__pct">{progressPct}%</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="path">
+        <template for:each={steps} for:item="s">
+          <button key={s.value} class={s.className} data-value={s.value} onclick={handleStep} title={s.label}>
+            <span class="step__mark">
+              <template if:true={s.isDone}>
+                <lightning-icon icon-name="utility:check" size="xx-small" variant="inverse"></lightning-icon>
+              </template>
+              <template if:false={s.isDone}>{s.num}</template>
+            </span>
+            <span class="step__label">{s.label}</span>
+          </button>
+        </template>
+      </div>
+    </div>
+  </article>
+</template>

@@ -1,0 +1,146 @@
+<template>
+  <article class="m-card card">
+    <div class="m-card__head">
+      <h3 class="m-card__title">
+        <span class="ai-badge">
+          <lightning-icon icon-name="utility:einstein" size="small" variant="inverse"></lightning-icon>
+        </span>
+        AI Calling History
+      </h3>
+      <span class="m-pill">{callCount} calls</span>
+    </div>
+
+    <!-- empty state -->
+    <template lwc:if={hasCalls}>
+      <!-- active call detail -->
+      <div class="detail">
+        <div class="detail__head">
+          <div class="detail__title">
+            <span class="t">{active.title}</span>
+            <span class="meta">{active.direction} · {active.agent} · {active.dateLabel}</span>
+          </div>
+          <div class="detail__tags">
+            <span class={sentimentClass}>{active.sentiment}</span>
+            <span class="m-pill is-accent">{active.intent}</span>
+          </div>
+        </div>
+
+        <!-- recording player (real audio) -->
+        <div class="player">
+          <button class="play" onclick={togglePlay} title="Play / pause recording">
+            <lightning-icon icon-name={playIcon} size="small" variant="inverse"></lightning-icon>
+          </button>
+          <div class="wave" onclick={handleSeek} title="Click to seek">
+            <template for:each={bars} for:item="b">
+              <span key={b.key} class={b.className} style={b.style}></span>
+            </template>
+          </div>
+          <span class="dur m-mono">{timeLabel}</span>
+        </div>
+        <!-- hidden media element; src swaps with the active call -->
+        <audio
+          src={audioSrc}
+          preload="metadata"
+          ontimeupdate={handleTime}
+          onloadedmetadata={handleMeta}
+          onended={handleEnded}
+        ></audio>
+
+        <!-- AI summary -->
+        <div class="summary">
+          <span class="summary__label">CONVERSATION SUMMARY</span>
+          <p class="summary__text">{active.summary}</p>
+        </div>
+
+        <!-- full transcript (fetched live per selected call) -->
+        <template lwc:if={showTranscript}>
+          <div class="transcript">
+            <div class="transcript__head">
+              <lightning-icon icon-name="utility:chat" size="xx-small" class="transcript__i"></lightning-icon>
+              <span class="transcript__label">CALL TRANSCRIPT</span>
+            </div>
+
+            <!-- loading -->
+            <template lwc:if={transcriptLoading}>
+              <div class="transcript__state">
+                <lightning-spinner alternative-text="Loading transcript" size="small"></lightning-spinner>
+                <span class="transcript__statetext">Fetching transcript…</span>
+              </div>
+            </template>
+
+            <!-- error -->
+            <template lwc:elseif={transcriptError}>
+              <div class="transcript__state transcript__state--err">
+                <lightning-icon icon-name="utility:warning" size="xx-small" class="transcript__i"></lightning-icon>
+                <span class="transcript__statetext">{transcriptError}</span>
+              </div>
+            </template>
+
+            <!-- turns -->
+            <template lwc:else>
+              <div class="transcript__body">
+                <template for:each={transcript} for:item="r">
+                  <div key={r.key} class={r.rowClass}>
+                    <span class={r.avatarClass}>
+                      <lightning-icon icon-name={r.avatarIcon} size="xx-small" variant="inverse"></lightning-icon>
+                    </span>
+                    <div class="tr__bubble">
+                      <div class="tr__meta">
+                        <span class="tr__who">{r.speaker}</span>
+                        <span class="tr__time m-mono">{r.time}</span>
+                      </div>
+                      <p class="tr__text">{r.text}</p>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- highlights -->
+        <div class="highlights">
+          <template for:each={active.highlights} for:item="h">
+            <div key={h} class="hl">
+              <lightning-icon icon-name="utility:check" size="xx-small" class="hl__i"></lightning-icon>
+              <span>{h}</span>
+            </div>
+          </template>
+        </div>
+
+        <!-- next best action -->
+        <div class="nba">
+          <lightning-icon icon-name="utility:magicwand" size="xx-small" variant="inverse"></lightning-icon>
+          <div class="nba__text">
+            <span class="nba__k">NEXT BEST ACTION</span>
+            <span class="nba__v">{active.nextAction}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- call list -->
+      <div class="list">
+        <template for:each={list} for:item="c">
+          <button key={c.id} class={c.rowClass} data-id={c.id} onclick={selectCall}>
+            <span class={c.dirClass}>
+              <lightning-icon icon-name={c.dirIcon} size="xx-small"></lightning-icon>
+            </span>
+            <span class="row__main">
+              <span class="row__title">{c.title}</span>
+              <span class="row__meta">{c.dateLabel}</span>
+            </span>
+            <span class="row__dur m-mono">{c.duration}</span>
+          </button>
+        </template>
+      </div>
+    </template>
+
+    <template lwc:else>
+      <div class="empty">
+        <lightning-icon icon-name="utility:call" size="small" class="empty__i"></lightning-icon>
+        <span class="empty__t">No AI calls logged yet</span>
+        <span class="empty__s">Linked voice calls will appear here, newest first.</span>
+      </div>
+    </template>
+  </article>
+</template>

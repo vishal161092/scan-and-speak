@@ -1,0 +1,167 @@
+<template>
+    <div class="stage">
+        <!-- desktop-only guard -->
+        <div class="mobile-block">
+            <p>This live experience is designed for the big screen.</p>
+            <span>Please open it on a desktop display.</span>
+        </div>
+
+        <div class="theater">
+            <!-- header -->
+            <header class="hdr">
+                <div class="hdr__brand">
+                    <span class="dot"></span>
+                    <div class="hdr__titles">
+                        <h1>Showroom Copilot</h1>
+                        <p>Agentforce turns the live conversation into proactive nudges</p>
+                    </div>
+                </div>
+                <div class="hdr__right">
+                    <span class={liveClass}><i></i>{liveText}</span>
+                    <button class={goLiveClass} onclick={handleGoLive} disabled={goLiveDisabled}>
+                        {goLiveLabel}
+                    </button>
+                </div>
+            </header>
+
+            <!-- main layout -->
+            <div class="layout">
+                <!-- horizontal pipeline (aligned to the two tiles below) -->
+                <section class="panel pipe-panel">
+                    <h2 class="panel__label">Agentforce · working</h2>
+                    <ol class="steps">
+                        <template for:each={computedSteps} for:item="st">
+                            <li key={st.key} class="step">
+                                <template if:true={st.showConnector}>
+                                    <span class={st.connectorCls}></span>
+                                </template>
+                                <span class={st.nodeCls}>
+                                    <template if:true={st.isActive}>
+                                        <span class="pulse-ring"></span>
+                                    </template>
+                                    <template if:true={st.isDone}>
+                                        <svg viewBox="0 0 24 24" class="check"><path d="M5 13l4 4L19 7"/></svg>
+                                    </template>
+                                    <template if:false={st.isDone}>
+                                        <lightning-icon
+                                            icon-name={st.icon}
+                                            size="small"
+                                            class="node-ic"
+                                            alternative-text={st.title}></lightning-icon>
+                                    </template>
+                                </span>
+                                <span class={st.nameCls}>{st.title}</span>
+                                <span class="step-desc">{st.desc}</span>
+                            </li>
+                        </template>
+                    </ol>
+                </section>
+
+                <!-- left: conversation + thinking -->
+                <div class="col-left">
+                    <section class="panel panel--convo">
+                        <h2 class="panel__label">Live conversation</h2>
+                        <div class="convo">
+                            <template for:each={transcript} for:item="ln">
+                                <div key={ln.id} class={ln.cls}>
+                                    <span class="line__who">{ln.speaker}</span>
+                                    <p class="line__text">{ln.text}</p>
+                                </div>
+                            </template>
+                            <template if:false={transcript.length}>
+                                <div class="empty">Waiting for the conversation to begin…</div>
+                            </template>
+                        </div>
+                    </section>
+
+                    <section class="panel panel--think">
+                        <h2 class="panel__label">Reasoning</h2>
+                        <div class="think">
+                            <template if:true={reasoning}>
+                                <p class="think__line"><span class="think__cursor"></span>{reasoning}</p>
+                            </template>
+                            <template if:true={detectedPhase}>
+                                <div class="chips">
+                                    <span class="chip chip--phase">phase · {detectedPhase}</span>
+                                    <span class="chip chip--topic">{detectedTopic}</span>
+                                </div>
+                            </template>
+                            <template if:true={draftLong}>
+                                <div class="draft">
+                                    <span class="draft__tag">drafting nudge</span>
+                                    <p class="draft__long">{draftLong}</p>
+                                    <template if:true={draftShort}>
+                                        <p class="draft__short">⌚ {draftShort}</p>
+                                    </template>
+                                </div>
+                            </template>
+                            <template if:false={reasoning}>
+                                <template if:false={draftLong}>
+                                    <div class="empty">Agentforce reasoning will appear here…</div>
+                                </template>
+                            </template>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- right: devices (large) -->
+                <section class="panel panel--devices">
+                    <h2 class="panel__label">Delivered to the sales rep</h2>
+                    <div class="devices">
+                        <!-- phone -->
+                        <div class="phone">
+                            <div class="phone__notch"></div>
+                            <div class="phone__screen">
+                                <div class="phone__bar">
+                                    <span>9:41</span>
+                                    <span class="phone__app">Showroom Copilot</span>
+                                </div>
+                                <template if:true={hasPhoneNudge}>
+                                    <div class={phoneClass}>
+                                        <div class="nudge-card__head">
+                                            <span class="nudge-card__ic">AI</span>
+                                            <span class="nudge-card__cat">{phoneCategory}</span>
+                                        </div>
+                                        <p class="nudge-card__text">{phoneText}</p>
+                                        <span class="nudge-card__foot">Suggested by Agentforce · now</span>
+                                    </div>
+                                </template>
+                                <template if:false={hasPhoneNudge}>
+                                    <div class="phone__idle">
+                                        <span class="phone__pulse"></span>
+                                        Listening to the conversation…
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- watch -->
+                        <div class="watch">
+                            <div class={watchClass}>
+                                <template if:true={watchText}>
+                                    <span class="watch__cat">{watchCategory}</span>
+                                    <p class="watch__text">{watchText}</p>
+                                </template>
+                                <template if:false={watchText}>
+                                    <span class="watch__idle">⌚</span>
+                                </template>
+                            </div>
+                            <span class="watch__crown"></span>
+                            <span class="watch__label">Apple Watch</span>
+                        </div>
+                    </div>
+
+                    <!-- transient nudge feed -->
+                    <div class="feed">
+                        <template for:each={deliveredCards} for:item="c">
+                            <div key={c.id} class={c.cls}>
+                                <span class="feed-card__cat">{c.category}</span>
+                                <p class="feed-card__text">{c.shortNudge}</p>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,44 @@
+<template>
+  <article class="m-card card">
+    <div class="m-card__head">
+      <h3 class="m-card__title"><span class="m-dot"></span> Lead Score</h3>
+      <span class={bandClass}>{band}</span>
+    </div>
+
+    <div class="gauge">
+      <svg viewBox="0 0 120 120" class="ring">
+        <circle cx="60" cy="60" r="52" class="ring__bg"></circle>
+        <circle
+          cx="60"
+          cy="60"
+          r="52"
+          class="ring__fg"
+          stroke={ringColor}
+          stroke-dasharray={circ}
+          stroke-dashoffset={dashOffset}
+        ></circle>
+      </svg>
+      <div class="gauge__center">
+        <span class="gauge__num m-mono">{score}</span>
+        <span class="gauge__hundred">/ 100</span>
+      </div>
+    </div>
+
+    <p class="summary">{summaryLine}</p>
+
+    <div class="factors">
+      <span class="factors__label">SCORE DRIVERS</span>
+      <template for:each={factorRows} for:item="f">
+        <div key={f.id} class="fb">
+          <div class="fb__top">
+            <span class="fb__k">{f.label}</span>
+            <span class="fb__v m-mono">{f.pts}<span class="fb__max">/{f.max}</span></span>
+          </div>
+          <div class="fb__track">
+            <div class={f.fillClass} style={f.style}></div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </article>
+</template>

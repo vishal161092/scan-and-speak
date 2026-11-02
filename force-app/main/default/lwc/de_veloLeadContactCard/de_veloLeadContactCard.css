@@ -1,0 +1,528 @@
+/* Tokens inlined from veloTheme (kept per-component so each LWC is self-contained). */
+/* ============================================================
+   Velo Dealer Sales — shared DEEP-BLACK GLASS design tokens
+   Cards are near-opaque black so they read as premium black glass
+   on ANY host record page (a Lightning page background is light,
+   so translucency would look grey). The "glass" comes from a
+   lit-from-top gradient sheen, luminous hairline edges, an inner
+   top highlight, and soft depth shadow — self-contained, not
+   dependent on what's behind the card.
+   ============================================================ */
+:host {
+  /* --- surfaces (near-opaque black glass, layered) --- */
+  --bg: #0a0a0b;
+  --surface: rgba(18, 18, 22, 0.96);
+  --surface-2: rgba(32, 32, 40, 0.96);
+  --surface-3: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.14);
+  --line-strong: rgba(255, 255, 255, 0.24);
+
+  /* --- glass --- */
+  --glass-blur: 14px;
+  --glass-tint: linear-gradient(155deg, rgba(30, 30, 37, 0.98) 0%, rgba(14, 14, 18, 0.98) 46%, rgba(8, 8, 11, 0.99) 100%);
+  --glass-sheen: rgba(255, 255, 255, 0.14);
+
+  /* --- ink scale (off-white -> faint grey) --- */
+  --ink: #f4f4f6;
+  --ink-2: #c7c7cf;
+  --muted: #8f8f9a;
+  --faint: #626270;
+
+  /* --- single Velo red accent --- */
+  --accent: #e11b22;
+  --accent-2: #ff3b41;
+  --accent-soft: rgba(225, 27, 34, 0.16);
+  --accent-line: rgba(225, 27, 34, 0.42);
+
+  /* --- premium metallic (used only for score / hero) --- */
+  --gold: #c9a86a;
+
+  /* --- semantic (sentiment / status) --- */
+  --pos: #34c759;
+  --pos-soft: rgba(52, 199, 89, 0.16);
+  --warn: #f5a623;
+  --warn-soft: rgba(245, 166, 35, 0.16);
+  --neg: #ff4d4f;
+  --neg-soft: rgba(255, 77, 79, 0.16);
+  --info: #5ac8fa;
+  --info-soft: rgba(90, 200, 250, 0.16);
+
+  /* --- type --- */
+  --font: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --fs-2xs: 10px;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-base: 13px;
+  --fs-md: 15px;
+  --fs-lg: 19px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* --- 4/8 spacing --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 28px;
+  --sp-7: 40px;
+
+  /* --- shape --- */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow-card: inset 0 1px 0 var(--glass-sheen), inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 14px 40px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 16px 48px rgba(0, 0, 0, 0.7);
+
+  display: block;
+}
+
+/* ---------- card shell (deep-black glass) ---------- */
+.m-card {
+  position: relative;
+  background: var(--glass-tint);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  font-family: var(--font);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+}
+/* diagonal top-left sheen — gives the lit-glass look without covering content */
+.m-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.m-card > * { position: relative; z-index: 1; }
+.m-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--line);
+}
+.m-card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+.m-card__body {
+  padding: var(--sp-5);
+}
+
+/* accent dot used in titles */
+.m-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px 1px var(--accent-line);
+  flex: 0 0 auto;
+}
+
+/* ---------- pills & chips ---------- */
+.m-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+  background: var(--surface-3);
+  white-space: nowrap;
+}
+.m-pill.is-pos { color: var(--pos); background: var(--pos-soft); border-color: transparent; }
+.m-pill.is-warn { color: var(--warn); background: var(--warn-soft); border-color: transparent; }
+.m-pill.is-neg { color: var(--neg); background: var(--neg-soft); border-color: transparent; }
+.m-pill.is-accent { color: var(--accent-2); background: var(--accent-soft); border-color: transparent; }
+
+/* ---------- key/value rows ---------- */
+.m-kv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+.m-kv:last-child { border-bottom: 0; }
+.m-kv__k {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  font-weight: var(--fw-medium);
+}
+.m-kv__v {
+  font-size: var(--fs-base);
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+  text-align: right;
+}
+
+/* ---------- buttons ---------- */
+.m-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  border: 1px solid var(--line-strong);
+  background: var(--surface-3);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+.m-btn:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-1px); }
+.m-btn.is-accent {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(225, 27, 34, 0.35);
+}
+.m-btn.is-accent:hover { filter: brightness(1.06); }
+.m-btn--icon {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+/* ---------- misc ---------- */
+.m-muted { color: var(--muted); }
+.m-mono { font-variant-numeric: tabular-nums; }
+
+
+/* ============================================================
+   Automotive Customer 360 — combined contact + lead card.
+   Deep-black canvas with stacked rounded inner panels, matching
+   the reference design. Only sections backed by real org fields
+   render (empty rows / missing fields are skipped in JS).
+   ============================================================ */
+.c360 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  /* Force a fixed light fill on every lightning-icon inside the card so a
+     Salesforce dark theme can't flip utility icons (Address etc.) to black.
+     Both old (--sds-c) and new (--slds-c) SLDS hook names are set; custom
+     properties inherit through the icon's shadow DOM. */
+  --sds-c-icon-color-foreground: var(--ink);
+  --sds-c-icon-color-foreground-default: var(--ink);
+  --slds-c-icon-color-foreground: var(--ink);
+  --slds-c-icon-color-foreground-default: var(--ink);
+  background: var(--glass-tint);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  font-family: var(--font);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+}
+
+/* ---------- header ---------- */
+.c360__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+}
+.avatar {
+  position: relative;
+  flex: 0 0 auto;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #2a2a31, #131316);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55), 0 0 22px 2px rgba(120, 150, 255, 0.14);
+}
+.avatar span {
+  font-family: var(--font);
+  font-size: 26px;
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.c360__id { min-width: 0; flex: 1; }
+
+/* QR panel — scannable code with quick-reference data beside it */
+.qr { display: flex; align-items: center; gap: var(--sp-4); }
+.qr__tile {
+  flex: 0 0 auto;
+  padding: 8px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  line-height: 0;
+}
+.qr__img {
+  display: block;
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+}
+.qr__meta { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.qr__eyebrow {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: var(--fw-semibold);
+}
+.qr__name { font-size: var(--fs-md); font-weight: var(--fw-bold); color: var(--ink); }
+.qr__rows { display: flex; flex-direction: column; gap: 3px; margin-top: 4px; }
+.qr__row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+.qr__k { font-size: var(--fs-sm); color: var(--muted); flex: 0 0 auto; }
+.qr__v {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--ink);
+  text-align: right;
+  word-break: break-word;
+}
+.qr__v--mono { font-variant-numeric: tabular-nums; font-size: var(--fs-xs); color: var(--ink-2); }
+.qr__note { font-size: var(--fs-xs); color: var(--faint); margin-top: 4px; }
+.c360__name {
+  margin: 0;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.c360__sub {
+  margin: 4px 0 0;
+  font-size: var(--fs-base);
+  color: var(--muted);
+}
+
+/* ---------- inner panel ---------- */
+.panel {
+  padding: var(--sp-4) var(--sp-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ---------- icon rows ---------- */
+.rows { display: flex; flex-direction: column; gap: var(--sp-3); }
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.row__icon {
+  --sds-c-icon-color-foreground: var(--ink);
+  --sds-c-icon-color-foreground-default: var(--ink);
+  --slds-c-icon-color-foreground: var(--ink);
+  --slds-c-icon-color-foreground-default: var(--ink);
+  flex: 0 0 auto;
+}
+.row__k {
+  font-size: var(--fs-base);
+  color: var(--ink);
+  flex: 0 0 auto;
+}
+.row__v {
+  font-size: var(--fs-base);
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+  margin-left: auto;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* ---------- tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--ink);
+  background: var(--surface-3);
+  border: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+
+/* ---------- vehicle interest ---------- */
+.veh { display: flex; align-items: center; gap: var(--sp-4); }
+.veh__icon {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #2a2a31, #16161a);
+  border: 1px solid var(--line-strong);
+}
+.veh__icon--ev {
+  background: radial-gradient(circle at 30% 30%, #7ee081, #34c759 70%);
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(52, 199, 89, 0.35);
+}
+.veh__meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.veh__eyebrow {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: var(--fw-semibold);
+}
+.veh__name {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.veh__line { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; margin-top: 2px; }
+.veh__value { font-size: var(--fs-md); font-weight: var(--fw-bold); color: var(--ink-2); }
+.veh__value--ev { color: var(--pos); }
+.veh__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--pos);
+  background: var(--pos-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.veh__sub { font-size: var(--fs-sm); color: var(--muted); }
+.veh__tagline { font-size: var(--fs-sm); color: var(--pos); font-weight: var(--fw-medium); }
+
+/* ---------- engagement score ---------- */
+.score__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-3); }
+.score__title { display: flex; flex-direction: column; }
+.score__label { font-size: var(--fs-md); font-weight: var(--fw-bold); color: var(--ink); }
+.score__hint { font-size: var(--fs-sm); color: var(--muted); }
+.score__num { display: flex; align-items: baseline; gap: var(--sp-2); }
+.score__pct { font-size: var(--fs-xl); font-weight: var(--fw-bold); color: var(--ink); font-variant-numeric: tabular-nums; }
+.score__band {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.score__band--hot { color: var(--accent-2); }
+.score__band--warm { color: var(--warn); }
+.score__band--cold { color: var(--info); }
+.score__track {
+  position: relative;
+  height: 8px;
+  margin-top: var(--sp-3);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.score__fill { height: 100%; border-radius: var(--radius-pill); transition: width 0.4s ease; }
+.score__fill--hot { background: linear-gradient(90deg, #ff3b41, #e11b22); }
+.score__fill--warm { background: linear-gradient(90deg, #f5c14e, #f5a623); }
+.score__fill--cold { background: linear-gradient(90deg, #8fd8fc, #5ac8fa); }
+.score__scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: var(--fs-xs);
+  color: var(--faint);
+}
+
+/* ---------- key factors ---------- */
+.kf__title {
+  display: block;
+  margin-top: var(--sp-4);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.kf { list-style: none; margin: var(--sp-2) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
+.kf__item { display: flex; flex-direction: column; gap: 6px; }
+.kf__head { display: flex; align-items: center; gap: var(--sp-2); }
+.kf__dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
+.kf__dot--on { background: var(--pos); box-shadow: 0 0 8px 1px rgba(52, 199, 89, 0.5); }
+.kf__dot--off { background: rgba(255, 255, 255, 0.18); }
+.kf__text { font-size: var(--fs-base); color: var(--ink-2); }
+.kf__score {
+  margin-left: auto;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.kf__track {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.kf__fill { height: 100%; border-radius: var(--radius-pill); transition: width 0.4s ease; }
+.kf__fill--hot { background: linear-gradient(90deg, #ff3b41, #e11b22); }
+.kf__fill--warm { background: linear-gradient(90deg, #f5c14e, #f5a623); }
+.kf__fill--cold { background: linear-gradient(90deg, #8fd8fc, #5ac8fa); }
+.kf__fill--empty { background: rgba(255, 255, 255, 0.14); }
+
+/* ---------- actions ---------- */
+.actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+}
+.act { width: 100%; height: 40px; }
+
+/* ---------- consent ---------- */
+.consent {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-sm);
+  background: var(--warn-soft);
+}

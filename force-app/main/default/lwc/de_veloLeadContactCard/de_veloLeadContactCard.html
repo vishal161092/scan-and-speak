@@ -1,0 +1,115 @@
+<template>
+  <article class="c360">
+    <!-- header -->
+    <header class="c360__head">
+      <div class="avatar">
+        <span>{initials}</span>
+      </div>
+      <div class="c360__id">
+        <h2 class="c360__name">{fullName}</h2>
+        <p class="c360__sub">Automotive Customer 360</p>
+      </div>
+    </header>
+
+    <!-- contact panel -->
+    <template if:true={contactRows.length}>
+      <section class="panel">
+        <div class="rows">
+          <template for:each={contactRows} for:item="r">
+            <div key={r.id} class="row">
+              <lightning-icon icon-name={r.icon} size="x-small" class="row__icon"></lightning-icon>
+              <span class="row__k">{r.label}</span>
+              <span class="row__v">{r.value}</span>
+            </div>
+          </template>
+        </div>
+
+        <template if:true={hasTags}>
+          <div class="tags">
+            <template for:each={tags} for:item="t">
+              <span key={t.id} class="tag">{t.label}</span>
+            </template>
+          </div>
+        </template>
+      </section>
+    </template>
+
+    <!-- QR panel — scan to open this record -->
+    <template if:true={hasQr}>
+      <section class="panel qr">
+        <div class="qr__tile">
+          <img src={qrDataUrl} alt="Record QR code" class="qr__img" />
+        </div>
+        <div class="qr__meta">
+          <span class="qr__eyebrow">Customer QR code</span>
+          <span class="qr__name">{fullName}</span>
+          <span class="qr__note">Point a phone camera to load 360 on mobile.</span>
+        </div>
+      </section>
+    </template>
+
+    <!-- engagement score panel -->
+    <template if:true={hasScore}>
+      <section class="panel score">
+        <div class="score__top">
+          <div class="score__title">
+            <span class="score__label">Engagement Score</span>
+            <span class="score__hint">Likelihood to convert</span>
+          </div>
+          <div class="score__num">
+            <span class="score__pct">{score}%</span>
+            <span class={bandClass}>{band}</span>
+          </div>
+        </div>
+        <div class="score__track">
+          <div class={barFillClass} style={barStyle}></div>
+        </div>
+        <div class="score__scale">
+          <span>Cold</span><span>Warm</span><span>Hot</span>
+        </div>
+
+        <span class="kf__title">Key factors</span>
+        <ul class="kf">
+          <template for:each={keyFactors} for:item="f">
+            <li key={f.id} class="kf__item">
+              <div class="kf__head">
+                <span class={f.dotClass}></span>
+                <span class="kf__text">{f.label}</span>
+                <span class="kf__score">{f.score}</span>
+              </div>
+              <div class="kf__track">
+                <div class={f.fillClass} style={f.fillStyle}></div>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </section>
+    </template>
+
+    <!-- quick actions -->
+    <div class="actions">
+      <button class="m-btn is-accent act" onclick={callPhone} title="Call">
+        <lightning-icon icon-name="utility:call" size="xx-small" variant="inverse"></lightning-icon>
+        <span>Call</span>
+      </button>
+      <button class="m-btn act" onclick={sendEmail} title="Email">
+        <lightning-icon icon-name="utility:email" size="xx-small"></lightning-icon>
+        <span>Email</span>
+      </button>
+      <button class="m-btn act" title="WhatsApp">
+        <lightning-icon icon-name="utility:chat" size="xx-small"></lightning-icon>
+        <span>Chat</span>
+      </button>
+    </div>
+
+    <!-- consent -->
+    <template if:true={hasConsentFlags}>
+      <div class="consent">
+        <lightning-icon icon-name="utility:privately_shared" size="xx-small" variant="warning"></lightning-icon>
+        <template for:each={consentFlags} for:item="c">
+          <span key={c.id} class="m-pill is-warn">{c.label}</span>
+        </template>
+      </div>
+    </template>
+  </article>
+</template>
